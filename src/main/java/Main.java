@@ -7,6 +7,7 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Duration;
 
 
 public class Main {
@@ -14,7 +15,7 @@ public class Main {
     static AppiumDriverLocalService server;
     public static AndroidDriver driver;
 
-    static void setInstance(){
+    static void setInstance() {
         AppiumServiceBuilder builder = new AppiumServiceBuilder();
         builder
                 .usingPort(4723)
@@ -22,22 +23,22 @@ public class Main {
         server = AppiumDriverLocalService.buildService(builder);
     }
 
-    static AppiumDriverLocalService getInstance(){
-        if(server == null){
+    static AppiumDriverLocalService getInstance() {
+        if (server == null) {
             setInstance();
         }
         return server;
     }
 
-    public static void startAppiumServer(){
+    public static void startAppiumServer() {
         getInstance().start();
         System.out.println("startAppiumServer");
         System.out.println("URL: " + server.getUrl());
-        System.out.println("is Server running: " +  server.isRunning());
+        System.out.println("is Server running: " + server.isRunning());
     }
 
-    public static void stopAppiumServer(){
-        if(server == null){
+    public static void stopAppiumServer() {
+        if (server == null) {
             getInstance().stop();
         }
         System.out.println("stopAppiumServer");
@@ -55,12 +56,14 @@ public class Main {
             options.setAutomationName("uiautomator2")
                     .setAppPackage("com.ziichat.android.media")
                     .setAppActivity("com.halome.media.app.MainActivity");
-            driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"),options );
+            driver = new AndroidDriver(new URL("http://127.0.0.1:4723/"), options);
+
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
             unlockLockScreenByFingerprint();
 
-            Thread.sleep(4000);
             Login.loginZiiChat(driver);
+
         } finally {
             Main.stopAppiumServer();
             System.out.println("finish");

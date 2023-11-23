@@ -2,7 +2,6 @@ package Action;
 
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 
@@ -24,6 +23,4 @@ public class Action {
                 "percent", 0.75
         ));
     }
-
-
 }
