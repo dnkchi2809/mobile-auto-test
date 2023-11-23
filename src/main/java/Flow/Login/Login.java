@@ -1,13 +1,14 @@
 package Flow.Login;
 
 import Action.Action;
+import Action.Wait;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.io.IOException;
 
 public class Login {
-
     public static void swipeIntro(AndroidDriver driver) throws InterruptedException {
         Thread.sleep(2000);
         Action.swipeToLeft(driver);
@@ -22,12 +23,14 @@ public class Login {
 
         driver.findElement(By.id("com.ziichat.android.media:id/btn_get_started")).click();
 
-        driver.findElement(By.id("com.ziichat.android.media:id/txtUsername")).sendKeys("automobile.chi.0001");
+        WebElement usernameInput = driver.findElement(By.id("com.ziichat.android.media:id/txtUsername"));
+
+        usernameInput.sendKeys("automobile.chi.0001");
 
         driver.findElement(By.id("com.ziichat.android.media:id/btnContinue")).click();
 
-        if (driver.findElement(By.id("com.ziichat.android.media:id/alertTitle")).isDisplayed()) {
-            WelcomeBack.WelcomeBackContinue(driver);
-        }
+        Wait.waitElementVisible(driver, 10, "com.ziichat.android.media:id/alertTitle");
+
+        WelcomeBack.WelcomeBackContinue(driver);
     }
 }

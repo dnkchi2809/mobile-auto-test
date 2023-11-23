@@ -9,9 +9,10 @@ import java.io.IOException;
 
 public class Action {
     public static void usingFingerprint() throws InterruptedException, IOException {
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         Runtime.getRuntime().exec("adb -e emu finger touch 1");
     }
+
     public static void swipeToLeft(AppiumDriver appiumDriver){
         Dimension windowSize = appiumDriver.manage().window().getSize();
         int screenWidth = windowSize.getWidth();

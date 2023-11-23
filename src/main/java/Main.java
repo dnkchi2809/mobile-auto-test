@@ -68,6 +68,5 @@ public class Main {
             Main.stopAppiumServer();
             System.out.println("finish");
         }
-
     }
 }
