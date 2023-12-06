@@ -22,17 +22,17 @@ public class BaseTest {
     }
 
     @BeforeMethod
-    @Parameters({"deviceName", "platformVersion", "portNumber"})
-    public void initialDriver(String deviceName, String platformVersion, String portNumber) throws MalformedURLException {
+    @Parameters({"deviceName", "platformName", "portNumber"})
+    public void initialDriver(String deviceName, String platformName, String portNumber) throws MalformedURLException {
         startAppiumService(portNumber);
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setCapability("deviceName", deviceName);
-        desiredCapabilities.setCapability("platformVersion", platformVersion);
+        desiredCapabilities.setCapability("platformName", platformName);
         desiredCapabilities.setCapability("portNumber", portNumber);
         desiredCapabilities.setCapability("appPackage", "com.ziichat.android.media");
         desiredCapabilities.setCapability("appActivity", "com.halome.media.app.MainActivity");
 
-        setDriver(new AndroidDriver(new URL("http://127.0.0.1:4723/"), desiredCapabilities));
+        setDriver(new AndroidDriver(new URL("http://127.0.0.1:" + portNumber + "/wd/hub"), desiredCapabilities));
     }
 
     @AfterMethod

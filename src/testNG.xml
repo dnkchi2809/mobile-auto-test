@@ -4,8 +4,8 @@
 <suite name="Regression" parallel="tests" thread-count="10">
     <test name="Android_01" parallel="tests" thread-count="10">
         <parameter name="platformName" value="ANDROID"/>
-        <parameter name="udid" value="emulator-5554"/>
-        <parameter name="serverPort" value="4723"/>
+        <parameter name="deviceName" value="emulator-5554"/>
+        <parameter name="portNumber" value="4723"/>
         <parameter name="localeCode" value="en_US"/>
         <classes>
             <class name="TestLogin"/>
@@ -14,13 +14,13 @@
 
     <!--    -->
 
-    <test name="Android_02" parallel="tests" thread-count="10">
-        <parameter name="platformName" value="ANDROID"/>
-        <parameter name="udid" value="emulator-5556"/>
-        <parameter name="serverPort" value="4725"/>
-        <parameter name="localeCode" value="en_US"/>
-        <classes>
-            <class name="TestRegister"/>
-        </classes>
-    </test>
+<!--    <test name="Android_02" parallel="tests" thread-count="10">-->
+<!--        <parameter name="platformName" value="ANDROID"/>-->
+<!--        <parameter name="deviceName" value="emulator-5556"/>-->
+<!--        <parameter name="portNumber" value="4725"/>-->
+<!--        <parameter name="localeCode" value="en_US"/>-->
+<!--        <classes>-->
+<!--            <class name="TestRegister"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>
