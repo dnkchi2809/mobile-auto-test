@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 public class TestRegister extends BaseTest {
     @Test
     public void test(){
-        System.out.println("TestRegister");
+        LaunchAppEvent launchAppEvent= new LaunchAppEvent(getDriver());
+        launchAppEvent.test2();
     }
 }

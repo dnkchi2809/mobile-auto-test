@@ -6,6 +6,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,7 +30,7 @@ public class BaseTest {
         desiredCapabilities.setCapability("deviceName", deviceName);
         desiredCapabilities.setCapability("platformName", platformName);
         desiredCapabilities.setCapability("portNumber", portNumber);
-        desiredCapabilities.setCapability("automationName", "uiautomator2");
+        desiredCapabilities.setCapability("automationName", "UiAutomator2");
         desiredCapabilities.setCapability("appPackage", "com.ziichat.android.media");
         desiredCapabilities.setCapability("appActivity", "com.halome.media.app.MainActivity");
 
@@ -37,7 +38,7 @@ public class BaseTest {
     }
 
     @AfterMethod
-    public void closeDriver(){
+    public void closeDriver() {
         getDriver().quit();
     }
 
