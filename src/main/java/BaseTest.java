@@ -29,10 +29,11 @@ public class BaseTest {
         desiredCapabilities.setCapability("deviceName", deviceName);
         desiredCapabilities.setCapability("platformName", platformName);
         desiredCapabilities.setCapability("portNumber", portNumber);
+        desiredCapabilities.setCapability("automationName", "uiautomator2");
         desiredCapabilities.setCapability("appPackage", "com.ziichat.android.media");
         desiredCapabilities.setCapability("appActivity", "com.halome.media.app.MainActivity");
 
-        setDriver(new AndroidDriver(new URL("http://127.0.0.1:" + portNumber + "/wd/hub"), desiredCapabilities));
+        setDriver(new AndroidDriver(new URL("http://127.0.0.1:" + portNumber), desiredCapabilities));
     }
 
     @AfterMethod
