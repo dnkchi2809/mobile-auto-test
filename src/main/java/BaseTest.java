@@ -23,12 +23,13 @@ public class BaseTest {
     }
 
     @BeforeMethod
-    @Parameters({"deviceName", "platformName", "portNumber"})
-    public void initialDriver(String deviceName, String platformName, String portNumber) throws MalformedURLException {
+    @Parameters({"deviceName", "platformName", "systemPort", "portNumber"})
+    public void initialDriver(String deviceName, String platformName, String systemPort, String portNumber) throws MalformedURLException {
         startAppiumService(portNumber);
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setCapability("deviceName", deviceName);
         desiredCapabilities.setCapability("platformName", platformName);
+        desiredCapabilities.setCapability("systemPort", systemPort);
         desiredCapabilities.setCapability("portNumber", portNumber);
         desiredCapabilities.setCapability("automationName", "UiAutomator2");
         desiredCapabilities.setCapability("appPackage", "com.ziichat.android.media");
