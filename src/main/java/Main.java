@@ -45,7 +45,7 @@ public class Main {
     }
 
     public static void unlockLockScreenByFingerprint() throws InterruptedException, IOException {
-        Action.usingFingerprint();
+        Action.usingFingerprint(driver);
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -62,7 +62,7 @@ public class Main {
 
             unlockLockScreenByFingerprint();
 
-            Login.loginZiiChat(driver);
+            Login.loginZiiChat(driver, "automobile.chi.0010");
 
         } finally {
             Main.stopAppiumServer();

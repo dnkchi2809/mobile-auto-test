@@ -8,9 +8,12 @@ import org.openqa.selenium.JavascriptExecutor;
 import java.io.IOException;
 
 public class Action {
-    public static void usingFingerprint() throws InterruptedException, IOException {
+    public static void usingFingerprint(AppiumDriver driver) throws InterruptedException, IOException {
         Thread.sleep(3000);
-        Runtime.getRuntime().exec("adb -e emu finger touch 1");
+        String deviceName = (String) driver.getCapabilities().getCapability("udid");
+        System.out.println("deviceName " + deviceName);
+        String cmd = "adb -e -s " + deviceName + " emu finger touch 1";
+        Runtime.getRuntime().exec(cmd.split(" ", 0));
     }
 
     public static void swipeToLeft(AppiumDriver appiumDriver){
