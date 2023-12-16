@@ -4,6 +4,7 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 
@@ -13,34 +14,49 @@ public class MultiDriverMain {
 
     public static AppiumDriver driver2;
 
+    public static AppiumDriver initAppiumDriver(String deviceName) throws MalformedURLException {
+        AppiumDriver driver;
+        DesiredCapabilities capabilities1 = new DesiredCapabilities();
+        capabilities1.setCapability("platformName", "Android");
+        capabilities1.setCapability("udid", deviceName);
+        capabilities1.setCapability("automationName", "uiautomator2");
+        capabilities1.setCapability("appPackage", "com.ziichat.android.media");
+        capabilities1.setCapability("appActivity", "com.halome.media.app.MainActivity");
+        capabilities1.setCapability("autoGrantPermissions", "true");
+
+        driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), capabilities1);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+        return driver;
+    }
+
     public static void main(String[] args) throws IOException, InterruptedException {
         try {
-            // Desired capabilities for the first device
-            DesiredCapabilities capabilities1 = new DesiredCapabilities();
-            capabilities1.setCapability("platformName", "Android");
-            capabilities1.setCapability("udid", "emulator-5554");
-            capabilities1.setCapability("automationName", "uiautomator2");
-            capabilities1.setCapability("appPackage", "com.ziichat.android.media");
-            capabilities1.setCapability("appActivity", "com.halome.media.app.MainActivity");
-            capabilities1.setCapability("autoGrantPermissions", "true");
-            // Add other capabilities as needed
+            Thread thread1 = new Thread(() -> {
+                try {
+                    driver1 = initAppiumDriver("emulator-5554");
+                }catch (MalformedURLException e){
+                    throw new RuntimeException(e );
+                }
+            });
 
-            // Desired capabilities for the second device
-            DesiredCapabilities capabilities2 = new DesiredCapabilities();
-            capabilities2.setCapability("platformName", "Android");
-            capabilities2.setCapability("udid", "emulator-5556");
-            capabilities2.setCapability("automationName", "uiautomator2");
-            capabilities2.setCapability("appPackage", "com.ziichat.android.media");
-            capabilities2.setCapability("appActivity", "com.halome.media.app.MainActivity");
-            capabilities2.setCapability("autoGrantPermissions", "true");
-            // Add other capabilities as needed
+            Thread thread2 = new Thread(() -> {
+                try {
+                    driver2 = initAppiumDriver("emulator-5556");
+                }catch (MalformedURLException e){
+                    throw new RuntimeException(e );
+                }
+            });
 
-            // Create Appium drivers for each device
-            driver1 = new AndroidDriver(new URL("http://127.0.0.1:4723"), capabilities1);
-            driver1.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+            thread1.start();
+            thread2.start();
 
-            driver2 = new AndroidDriver(new URL("http://127.0.0.1:4723"), capabilities2);
-            driver2.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+            try {
+                thread1.join();
+                thread2.join();
+            } catch (InterruptedException e){
+                e.printStackTrace(System.out);
+            }
 
             // Now you can perform actions on each driver independently
             // For example, interact with the chat app using driver1 and driver23
